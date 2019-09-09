@@ -1,0 +1,12 @@
+
+Broadcast:
+- buat class laravel Events
+- class tsb harus implements ShouldBroadcast
+- setting channel di event tsb
+- panggil function broadcast di controller
+- authorize di routes/channels.php
+
+Listen di client:
+- define variable global di app.blade
+- echo private di app.js
+- viewnya di blade -> vue component yg dipanggil dengan passing data
