@@ -25,6 +25,7 @@ Vue.component('chat-messages', require('./components/ChatMessages.vue').default)
 Vue.component('chat-form', require('./components/ChatForm.vue').default);
 Vue.component('room-list', require('./components/guru/RoomList.vue').default);
 Vue.component('room-list-s', require('./components/siswa/RoomList.vue').default);
+Vue.component('send-notification', require('./components/SendNotification.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

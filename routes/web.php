@@ -51,3 +51,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['web', 'level:1']], function 
 	Route::post('/messages', 'ChatsController@sendMessage');*/
 
 });
+
+Route::post('/push','PushController@store');
+Route::get('/push','PushController@push')->name('push');
+Route::get('/cobabutton','ChatsController@cobabutton');

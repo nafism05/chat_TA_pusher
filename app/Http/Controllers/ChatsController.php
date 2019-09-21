@@ -51,7 +51,7 @@ class ChatsController extends Controller
 	 */
 	public function chat($chatroom)
 	{
-	  return view('chat');
+        return view('chat');
 		// print($chatroom);
 	}
 
@@ -128,4 +128,9 @@ class ChatsController extends Controller
 
         return ChatRoom::where('siswa_id', $user->id)->get();
 	}
+
+    public function cobabutton()
+    {
+        return view('cobabutton');
+    }
 }

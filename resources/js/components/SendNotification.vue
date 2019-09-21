@@ -1,0 +1,120 @@
+<template>
+  <div>
+    <!-- Send notification button -->
+    <button
+      type="button"
+      class="btn btn-success btn-send" @click="sendNotification"
+    >
+      Send Notification
+    </button>
+
+    <!-- Enable/Disable push notifications -->
+    <!-- <button
+      type="button"
+      class="btn btn-primary"
+      @click="initPush"
+    >
+      Enable Push Notifications
+    </button> -->
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  data: () => ({
+  }),
+
+  methods: {
+    initPush() {
+        if (!navigator.serviceWorker.ready) {
+            return;
+        }
+
+        new Promise(function (resolve, reject) {
+            const permissionResult = Notification.requestPermission(function (result) {
+                resolve(result);
+            });
+
+            if (permissionResult) {
+                permissionResult.then(resolve, reject);
+            }
+        })
+            .then((permissionResult) => {
+                if (permissionResult !== 'granted') {
+                    throw new Error('We weren\'t granted permission.');
+                }
+                this.subscribeUser();
+            });
+    },
+
+    subscribeUser() {
+        navigator.serviceWorker.ready
+            .then((registration) => {
+                const subscribeOptions = {
+                    userVisibleOnly: true,
+                    applicationServerKey: this.urlBase64ToUint8Array(
+                        'BJsmJqNpbZ76knvtqaaPTyU0K0y7O1FggnlB8MnUHixaLItPW81Q-cISJwolrsn3uoe79yShpKX2ZmMWxoAV-bo'
+                    )
+                };
+
+                return registration.pushManager.subscribe(subscribeOptions);
+            })
+            .then((pushSubscription) => {
+                console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+                this.storePushSubscription(pushSubscription);
+            });
+    },
+
+    urlBase64ToUint8Array(base64String) {
+        var padding = '='.repeat((4 - base64String.length % 4) % 4);
+        var base64 = (base64String + padding)
+            .replace(/\-/g, '+')
+            .replace(/_/g, '/');
+
+        var rawData = window.atob(base64);
+        var outputArray = new Uint8Array(rawData.length);
+
+        for (var i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+    },
+
+    storePushSubscription(pushSubscription) {
+        const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+        console.log('token:', token);
+
+        fetch('/push', {
+            method: 'POST',
+            body: JSON.stringify(pushSubscription),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': token
+            }
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    },
+
+    sendNotification () {
+      fetch('/push')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(JSON.stringify(myJson));
+        });
+    }
+  }
+}
+</script>

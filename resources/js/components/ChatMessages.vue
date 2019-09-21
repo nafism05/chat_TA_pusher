@@ -16,7 +16,17 @@
 </template>
 
 <script>
-  export default {
-    props: ['messages']
-  };
+export default {
+    data: () => ({
+        messages: []
+    }),
+
+    methods: {
+        fetchMessages() {
+            axios.get('/messages').then(response => {
+                this.messages = response.data;
+            });
+        },
+    }
+};
 </script>

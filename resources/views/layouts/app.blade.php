@@ -124,5 +124,9 @@
             @yield('content')
         </main>
     </div>
+
+    
+
+    <script src="{{ asset('js/enable_push.js') }}" defer></script>
 </body>
 </html>
