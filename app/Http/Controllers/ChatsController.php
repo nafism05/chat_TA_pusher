@@ -49,10 +49,10 @@ class ChatsController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function chat($chatroom)
+	public function chat($roomId)
 	{
-        return view('chat');
-		// print($chatroom);
+        $data['roomId'] = $roomId;
+        return view('chat')->with('data', $data);
 	}
 
 	public function addchat()
@@ -73,9 +73,11 @@ class ChatsController extends Controller
 	 *
 	 * @return Message
 	 */
-	public function fetchMessages()
+	public function fetchMessages($roomId)
 	{
-	  return Message::with('user')->get();
+        // return Message::with('user')->get();
+        return Message::with('user')->where('chatroom', $roomId)->get();
+
 	}
 
 	/**
@@ -87,13 +89,18 @@ class ChatsController extends Controller
 	public function sendMessage(Request $request)
 	{
         $user = Auth::user();
-
+        //
         $message = $user->messages()->create([
             'message' => $request->input('message'),
             'chatroom' => 10
         ]);
 
-        broadcast(new MessageSent($user, $message, 10))->toOthers();
+        // $message = $user->messages()->create([
+        //     'message' => 'test',
+        //     'chatroom' => 10
+        // ]);
+
+        // broadcast(new MessageSent($user, $message, 10))->toOthers();
 
         return ['status' => 'Message Sent!'];
 	}

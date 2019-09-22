@@ -21,14 +21,25 @@
         },
 
         methods: {
+
             sendMessage() {
+                // this.messages.push(message);
+
+                axios.post('/messages', {
+                    message : this.newMessage
+                }).then(response => {
+                    console.log('axios send message : '+response.data.status);
+                });
+
+                this.newMessage = '';
+            },
+
+            pushMessage(){
                 this.$emit('messagesent', {
                     user: this.user,
                     message: this.newMessage
                 });
-
-                this.newMessage = ''
             }
-        }    
+        }
     }
 </script>

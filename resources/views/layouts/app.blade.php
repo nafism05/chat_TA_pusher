@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <script>
-        window.laraprefix = '';
         window.chatId = 10;
         window.siswaId = {{ isset($data['siswaId']) ? $data['siswaId'] : 0 }};
     </script>
@@ -125,7 +124,7 @@
         </main>
     </div>
 
-    
+
 
     <script src="{{ asset('js/enable_push.js') }}" defer></script>
 </body>

@@ -20,7 +20,20 @@
 
 <script>
 export default {
-    props: ['rooms']
+
+    data: () => ({
+        rooms: []
+    }),
+
+    methods: {
+
+        fetchRooms() {
+            axios.get('/chatrooms').then(response => {
+                this.rooms = response.data;
+                // console.log(response);
+            });
+        }
+    }
 };
 
 </script>

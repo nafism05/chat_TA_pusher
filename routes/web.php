@@ -30,14 +30,14 @@ Route::group(['middleware' => ['web', 'level:2']], function () {
     Route::get('materi-belajar/search', 'ChooseMapelController@mapelSearch');
     Route::resource('materi-belajar', 'ChooseMapelController');*/
 	Route::get('/', 'ChatsController@index');
-	Route::get('/chat/id/{id}', 'ChatsController@chat');
+	Route::get('/chat/id/{roomId}', 'ChatsController@chat');
 	Route::get('/chatrooms', 'ChatsController@fetchRooms');
 	Route::get('/chatroom/add', 'ChatsController@addchat');
 	Route::post('/chatroom/add', 'ChatsController@storeCRoom');
-	Route::get('/messages', 'ChatsController@fetchMessages');
-	Route::post('/messages', 'ChatsController@sendMessage');
+	Route::get('/messages/{roomId}', 'ChatsController@fetchMessages');
 
 });
+Route::post('/messages', 'ChatsController@sendMessage');
 
 // level 1 itu guru
 Route::group(['prefix' => 'guru', 'middleware' => ['web', 'level:1']], function () {

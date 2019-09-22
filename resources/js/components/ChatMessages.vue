@@ -17,16 +17,34 @@
 
 <script>
 export default {
+    props: ['roomid'],
+
     data: () => ({
         messages: []
     }),
 
+    mounted () {
+        console.log('roomId = '+this.roomid);
+        this.fetchMessages();
+    },
+
     methods: {
         fetchMessages() {
-            axios.get('/messages').then(response => {
+            axios.get('/messages/'+this.roomid).then(response => {
                 this.messages = response.data;
             });
         },
+
+        addMessage(message) {
+            this.messages.push(message);
+
+            axios.post('/messages', message).then(response => {
+              // console.log(response.data);
+            }).catch(error => {
+                console.log('error post axios : '+error);
+            });
+        },
+
     }
 };
 </script>

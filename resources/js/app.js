@@ -42,7 +42,6 @@ const app = new Vue({
     },
 
     created() {
-        this.fetchMessages();
         Echo.private('chat.'+chatId)
         .listen('MessageSent', (e) => {
             this.messages.push({
@@ -51,7 +50,6 @@ const app = new Vue({
             });
         });
 
-        this.fetchRooms();
         Echo.private(guruChannel)
         .listen('RoomCreated', (e) => {
             this.rooms.push({
@@ -63,25 +61,8 @@ const app = new Vue({
     },
 
     methods: {
-        fetchMessages() {
-            axios.get('/messages').then(response => {
-                this.messages = response.data;
-            });
-        },
-
-        addMessage(message) {
-            this.messages.push(message);
-
-            axios.post('/messages', message).then(response => {
-              // console.log(response.data);
-            });
-        },
-
-        fetchRooms() {
-            axios.get(laraprefix+'/chatrooms').then(response => {
-                this.rooms = response.data;
-                // console.log(response);
-            });
+        pushMessage(message){
+          this.messages.push(message);
         }
     }
 });

@@ -1717,10 +1717,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    // sendMessage() {
+    //     this.$emit('messagesent', {
+    //         user: this.user,
+    //         message: this.newMessage
+    //     });
+    //
+    //     this.newMessage = ''
+    // },
     sendMessage: function sendMessage() {
-      this.$emit('messagesent', {
-        user: this.user,
+      // this.messages.push(message);
+      axios.post('/messages', {
         message: this.newMessage
+      }).then(function (response) {
+        console.log('axios send message : ' + response.data.status);
       });
       this.newMessage = '';
     }
@@ -1756,7 +1766,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages']
+  props: ['roomid'],
+  data: function data() {
+    return {
+      messages: []
+    };
+  },
+  mounted: function mounted() {
+    console.log('roomId = ' + this.roomid);
+    this.fetchMessages();
+  },
+  methods: {
+    fetchMessages: function fetchMessages() {
+      var _this = this;
+
+      axios.get('/messages/' + this.roomid).then(function (response) {
+        _this.messages = response.data;
+      });
+    },
+    addMessage: function addMessage(message) {
+      this.messages.push(message);
+      axios.post('/messages', message).then(function (response) {// console.log(response.data);
+      })["catch"](function (error) {
+        console.log('error post axios : ' + error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -1945,7 +1980,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['rooms']
+  data: function data() {
+    return {
+      rooms: []
+    };
+  },
+  methods: {
+    fetchRooms: function fetchRooms() {
+      var _this = this;
+
+      axios.get('/chatrooms').then(function (response) {
+        _this.rooms = response.data; // console.log(response);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -59906,14 +59954,12 @@ var app = new Vue({
   created: function created() {
     var _this = this;
 
-    this.fetchMessages();
     Echo["private"]('chat.' + chatId).listen('MessageSent', function (e) {
       _this.messages.push({
         message: e.message.message,
         user: e.user
       });
     });
-    this.fetchRooms();
     Echo["private"](guruChannel).listen('RoomCreated', function (e) {
       _this.rooms.push({
         judul: e.chatroom.judul
@@ -59923,27 +59969,7 @@ var app = new Vue({
       console.log(e);
     });
   },
-  methods: {
-    fetchMessages: function fetchMessages() {
-      var _this2 = this;
-
-      axios.get('/messages').then(function (response) {
-        _this2.messages = response.data;
-      });
-    },
-    addMessage: function addMessage(message) {
-      this.messages.push(message);
-      axios.post('/messages', message).then(function (response) {// console.log(response.data);
-      });
-    },
-    fetchRooms: function fetchRooms() {
-      var _this3 = this;
-
-      axios.get(laraprefix + '/chatrooms').then(function (response) {
-        _this3.rooms = response.data; // console.log(response);
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
