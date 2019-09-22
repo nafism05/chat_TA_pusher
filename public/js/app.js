@@ -1756,7 +1756,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages']
+  data: function data() {
+    return {
+      messages: []
+    };
+  },
+  methods: {
+    fetchMessages: function fetchMessages() {
+      var _this = this;
+
+      axios.get('/messages').then(function (response) {
+        _this.messages = response.data;
+      });
+    }
+  }
 });
 
 /***/ }),

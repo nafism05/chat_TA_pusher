@@ -49,9 +49,10 @@ class ChatsController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function chat($chatroom)
+	public function chat($roomId)
 	{
-        return view('chat');
+        $data['roomId'] = $roomId
+        return view('chat')->with('data', $data);
 		// print($chatroom);
 	}
 
