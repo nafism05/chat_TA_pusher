@@ -29,15 +29,34 @@ class ChatsController extends Controller
 	{
 		//tampil chat aktif
 		$user = Auth::user();
-        if ($user->level == 1) {
-            return redirect('/guru');
-        }
+        // if ($user->level == 1) {
+        //     return redirect('/guru');
+        // }
 
 		$chatrooms = ChatRoom::where('siswa_id', $user->id)->get();
 
         $this->data = array(
             'chatrooms' => $chatrooms,
             'siswaId' => $user->id
+        );
+
+        return view('chatrooms', ['data' => $this->data]);
+
+	}
+
+    public function guruIndex()
+	{
+		//tampil chat aktif
+		$user = Auth::user();
+        // if ($user->level == 1) {
+        //     return redirect('/guru');
+        // }
+
+		$chatrooms = ChatRoom::where('guru_id', $user->id)->get();
+
+        $this->data = array(
+            'chatrooms' => $chatrooms,
+            'guruId' => $user->id
         );
 
         return view('chatrooms', ['data' => $this->data]);
@@ -89,10 +108,11 @@ class ChatsController extends Controller
 	public function sendMessage(Request $request)
 	{
         $user = Auth::user();
+        $roomId = $request->input('roomid');
         //
         $message = $user->messages()->create([
             'message' => $request->input('message'),
-            'chatroom' => 10
+            'chatroom' => $request->input('roomid')
         ]);
 
         // $message = $user->messages()->create([
@@ -100,7 +120,7 @@ class ChatsController extends Controller
         //     'chatroom' => 10
         // ]);
 
-        // broadcast(new MessageSent($user, $message, 10))->toOthers();
+        broadcast(new MessageSent($user, $message, $roomId))->toOthers();
 
         return ['status' => 'Message Sent!'];
 	}
@@ -126,6 +146,17 @@ class ChatsController extends Controller
     }
 
     public function fetchRooms()
+	{
+        $user = Auth::user();
+
+        // echo $user->id;
+
+        // echo "hahaha";
+
+        return ChatRoom::where('siswa_id', $user->id)->get();
+	}
+
+    public function guruFetchRooms()
 	{
         $user = Auth::user();
 

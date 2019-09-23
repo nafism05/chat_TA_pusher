@@ -42,14 +42,6 @@ const app = new Vue({
     },
 
     created() {
-        Echo.private('chat.'+chatId)
-        .listen('MessageSent', (e) => {
-            this.messages.push({
-                message: e.message.message,
-                user: e.user
-            });
-        });
-
         Echo.private(guruChannel)
         .listen('RoomCreated', (e) => {
             this.rooms.push({
@@ -58,11 +50,43 @@ const app = new Vue({
             console.log('tes bosse');
             console.log(e);
         });
+
     },
 
     methods: {
-        pushMessage(message){
-          this.messages.push(message);
+
+        fetchMessages(roomid) {
+            // console.log('roomId = '+roomid);
+            axios.get('/messages/'+roomid).then(response => {
+                this.messages = response.data;
+            });
+        },
+
+        sendMessage(message){
+            this.messages.push(message);
+
+            axios.post('/messages', message).then(response => {
+                console.log(response.data);
+            }).catch(error => {
+                console.log('error post axios : '+error);
+            });
+        },
+
+        listenMessageSent(roomid){
+            Echo.private('chat.'+roomid)
+              .listen('MessageSent', (e) => {
+                  this.messages.push({
+                      message: e.message.message,
+                      user: e.user
+                  });
+              });
+        },
+
+        fetchRooms(){
+            axios.get('/chatrooms').then(response => {
+                this.rooms = response.data;
+                console.log('chatroomsaaa :'+response.data);
+            });
         }
     }
 });

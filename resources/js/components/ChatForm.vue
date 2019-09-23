@@ -11,35 +11,26 @@
 </template>
 
 <script>
-    export default {
-        props: ['user'],
+export default {
+    props: ['user', 'roomid'],
 
-        data() {
-            return {
-                newMessage: ''
-            }
-        },
+    data() {
+        return {
+            newMessage: ''
+        }
+    },
 
-        methods: {
+    methods: {
 
-            sendMessage() {
-                // this.messages.push(message);
+        sendMessage(){
+            this.$emit('messagesent', {
+                user: this.user,
+                message: this.newMessage,
+                roomid: this.roomid
+            });
 
-                axios.post('/messages', {
-                    message : this.newMessage
-                }).then(response => {
-                    console.log('axios send message : '+response.data.status);
-                });
-
-                this.newMessage = '';
-            },
-
-            pushMessage(){
-                this.$emit('messagesent', {
-                    user: this.user,
-                    message: this.newMessage
-                });
-            }
+            this.newMessage = '';
         }
     }
+}
 </script>

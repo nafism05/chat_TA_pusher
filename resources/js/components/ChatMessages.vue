@@ -17,33 +17,25 @@
 
 <script>
 export default {
-    props: ['roomid'],
+    props: ['roomid', 'messages'],
 
     data: () => ({
-        messages: []
+        // messages: []
     }),
 
     mounted () {
-        console.log('roomId = '+this.roomid);
-        this.fetchMessages();
+        this.fetchMessages(this.roomid);
+        this.listenMessageSent(this.roomid);
     },
 
     methods: {
-        fetchMessages() {
-            axios.get('/messages/'+this.roomid).then(response => {
-                this.messages = response.data;
-            });
+        fetchMessages(roomid) {
+            this.$emit('fetchmessages', roomid);
         },
 
-        addMessage(message) {
-            this.messages.push(message);
-
-            axios.post('/messages', message).then(response => {
-              // console.log(response.data);
-            }).catch(error => {
-                console.log('error post axios : '+error);
-            });
-        },
+        listenMessageSent(roomid){
+            this.$emit('listenmessagesent', roomid);
+        }
 
     }
 };

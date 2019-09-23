@@ -42,9 +42,9 @@ Route::post('/messages', 'ChatsController@sendMessage');
 // level 1 itu guru
 Route::group(['prefix' => 'guru', 'middleware' => ['web', 'level:1']], function () {
 
-	Route::get('/', 'Guru\ChatsController@index');
+	Route::get('/', 'ChatsController@guruIndex');
 	Route::get('chatrooms', 'Guru\ChatsController@fetchRooms');
-	Route::get('chat/id/{id}', 'Guru\ChatsController@chat');
+	Route::get('chat/id/{id}', 'ChatsController@chat');
 	/*Route::get('/chatroom/add', 'ChatsController@addchat');
 	Route::post('/chatroom/add', 'ChatsController@storeCRoom');
 	Route::get('/messages', 'ChatsController@fetchMessages');

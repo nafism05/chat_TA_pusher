@@ -12,7 +12,10 @@
                   {{--@foreach ($chatrooms as $chatroom)
                     <li><a href="{{ url('/chat/id/'.$chatroom->id) }}">{{ $chatroom->judul }}</a></li>
               		@endforeach--}}
-                  <room-list-s :rooms=rooms></room-list-s>
+                  <room-list-s
+			  		  :rooms="rooms"
+					  v-on:fetchrooms="fetchRooms"
+				  ></room-list-s>
                 </div>
                 <div class="panel-footer">
                   <a href="{{ url('/chatroom/add') }}">tambah percakapan baru</a>

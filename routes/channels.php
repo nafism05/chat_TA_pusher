@@ -11,7 +11,7 @@
 |
 */
 
-Broadcast::channel('chat.{chatroom}', function ($user, $chatroom) {
+Broadcast::channel('chat.{roomid}', function ($user, $roomid) {
   return Auth::check();
 });
 

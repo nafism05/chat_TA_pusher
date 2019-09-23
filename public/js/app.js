@@ -1710,27 +1710,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user'],
+  props: ['user', 'roomid'],
   data: function data() {
     return {
       newMessage: ''
     };
   },
   methods: {
-    // sendMessage() {
-    //     this.$emit('messagesent', {
-    //         user: this.user,
-    //         message: this.newMessage
-    //     });
-    //
-    //     this.newMessage = ''
-    // },
     sendMessage: function sendMessage() {
-      // this.messages.push(message);
-      axios.post('/messages', {
-        message: this.newMessage
-      }).then(function (response) {
-        console.log('axios send message : ' + response.data.status);
+      this.$emit('messagesent', {
+        user: this.user,
+        message: this.newMessage,
+        roomid: this.roomid
       });
       this.newMessage = '';
     }
@@ -1766,30 +1757,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['roomid'],
+  props: ['roomid', 'messages'],
   data: function data() {
-    return {
-      messages: []
+    return {// messages: []
     };
   },
   mounted: function mounted() {
-    console.log('roomId = ' + this.roomid);
-    this.fetchMessages();
+    this.fetchMessages(this.roomid);
+    this.listenMessageSent(this.roomid);
   },
   methods: {
-    fetchMessages: function fetchMessages() {
-      var _this = this;
-
-      axios.get('/messages/' + this.roomid).then(function (response) {
-        _this.messages = response.data;
-      });
+    fetchMessages: function fetchMessages(roomid) {
+      this.$emit('fetchmessages', roomid);
     },
-    addMessage: function addMessage(message) {
-      this.messages.push(message);
-      axios.post('/messages', message).then(function (response) {// console.log(response.data);
-      })["catch"](function (error) {
-        console.log('error post axios : ' + error);
-      });
+    listenMessageSent: function listenMessageSent(roomid) {
+      this.$emit('listenmessagesent', roomid);
     }
   }
 });
@@ -1980,18 +1962,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['rooms'],
   data: function data() {
-    return {
-      rooms: []
-    };
+    return {};
+  },
+  mounted: function mounted() {
+    this.fetchRooms();
   },
   methods: {
     fetchRooms: function fetchRooms() {
-      var _this = this;
-
-      axios.get('/chatrooms').then(function (response) {
-        _this.rooms = response.data; // console.log(response);
-      });
+      this.$emit('fetchrooms');
     }
   }
 });
@@ -59954,12 +59934,6 @@ var app = new Vue({
   created: function created() {
     var _this = this;
 
-    Echo["private"]('chat.' + chatId).listen('MessageSent', function (e) {
-      _this.messages.push({
-        message: e.message.message,
-        user: e.user
-      });
-    });
     Echo["private"](guruChannel).listen('RoomCreated', function (e) {
       _this.rooms.push({
         judul: e.chatroom.judul
@@ -59969,7 +59943,42 @@ var app = new Vue({
       console.log(e);
     });
   },
-  methods: {}
+  methods: {
+    fetchMessages: function fetchMessages(roomid) {
+      var _this2 = this;
+
+      // console.log('roomId = '+roomid);
+      axios.get('/messages/' + roomid).then(function (response) {
+        _this2.messages = response.data;
+      });
+    },
+    sendMessage: function sendMessage(message) {
+      this.messages.push(message);
+      axios.post('/messages', message).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log('error post axios : ' + error);
+      });
+    },
+    listenMessageSent: function listenMessageSent(roomid) {
+      var _this3 = this;
+
+      Echo["private"]('chat.' + roomid).listen('MessageSent', function (e) {
+        _this3.messages.push({
+          message: e.message.message,
+          user: e.user
+        });
+      });
+    },
+    fetchRooms: function fetchRooms() {
+      var _this4 = this;
+
+      axios.get('/chatrooms').then(function (response) {
+        _this4.rooms = response.data;
+        console.log('chatroomsaaa :' + response.data);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -60030,8 +60039,8 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "",
-  cluster: "mt1",
+  key: "8f3694364d8eb329baf9",
+  cluster: "ap1",
   encrypted: true
 });
 

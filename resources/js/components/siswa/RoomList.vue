@@ -21,17 +21,20 @@
 <script>
 export default {
 
+    props: ['rooms'],
+
     data: () => ({
-        rooms: []
+        
     }),
+
+    mounted(){
+        this.fetchRooms();
+    },
 
     methods: {
 
         fetchRooms() {
-            axios.get('/chatrooms').then(response => {
-                this.rooms = response.data;
-                // console.log(response);
-            });
+            this.$emit('fetchrooms');
         }
     }
 };
