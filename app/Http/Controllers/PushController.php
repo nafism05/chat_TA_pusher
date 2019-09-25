@@ -36,7 +36,9 @@ class PushController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function push(){
-        Notification::send(User::all(),new PushDemo);
+        $user = User::where('id', 3)->get();
+        // $user = User::all();
+        Notification::send($user,new PushDemo);
         // return redirect()->back();
         return response()->json('Notification sent.', 201);
     }

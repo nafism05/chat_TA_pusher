@@ -29,34 +29,15 @@ class ChatsController extends Controller
 	{
 		//tampil chat aktif
 		$user = Auth::user();
-        // if ($user->level == 1) {
-        //     return redirect('/guru');
-        // }
+        if ($user->level == 1) {
+            return redirect('/guru');
+        }
 
 		$chatrooms = ChatRoom::where('siswa_id', $user->id)->get();
 
         $this->data = array(
             'chatrooms' => $chatrooms,
             'siswaId' => $user->id
-        );
-
-        return view('chatrooms', ['data' => $this->data]);
-
-	}
-
-    public function guruIndex()
-	{
-		//tampil chat aktif
-		$user = Auth::user();
-        // if ($user->level == 1) {
-        //     return redirect('/guru');
-        // }
-
-		$chatrooms = ChatRoom::where('guru_id', $user->id)->get();
-
-        $this->data = array(
-            'chatrooms' => $chatrooms,
-            'guruId' => $user->id
         );
 
         return view('chatrooms', ['data' => $this->data]);
@@ -140,7 +121,7 @@ class ChatsController extends Controller
 
         $chatroom->save();
         Log::info('Yo opo save');
-        broadcast(new RoomCreated($user, $chatroom, 'guruChannel.'.$guru->id))->toOthers();
+        broadcast(new RoomCreated($user, $chatroom, $guru->id))->toOthers();
 
         return redirect('/'); //yg benar redireck ke chatroom
     }
@@ -148,21 +129,6 @@ class ChatsController extends Controller
     public function fetchRooms()
 	{
         $user = Auth::user();
-
-        // echo $user->id;
-
-        // echo "hahaha";
-
-        return ChatRoom::where('siswa_id', $user->id)->get();
-	}
-
-    public function guruFetchRooms()
-	{
-        $user = Auth::user();
-
-        // echo $user->id;
-
-        // echo "hahaha";
 
         return ChatRoom::where('siswa_id', $user->id)->get();
 	}

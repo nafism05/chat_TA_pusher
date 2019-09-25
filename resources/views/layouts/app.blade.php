@@ -3,16 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="manifest" href="{{url('/manifest.json')}}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script>
-        window.chatId = 10;
-        window.siswaId = {{ isset($data['siswaId']) ? $data['siswaId'] : 0 }};
-    </script>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -126,6 +123,6 @@
 
 
 
-    <script src="{{ asset('js/enable_push.js') }}" defer></script>
+    <script src="{{ asset('js/msw.js') }}" defer></script>
 </body>
 </html>

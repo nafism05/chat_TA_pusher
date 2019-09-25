@@ -25,13 +25,13 @@ class RoomCreated implements ShouldBroadcast
 
     public $user;
     public $chatroom;
-    private $guruChannel;
+    private $guruid;
 
-    public function __construct(User $user, ChatRoom $chatroom, $guruChannel)
+    public function __construct(User $user, ChatRoom $chatroom, $guruId)
     {
         $this->user = $user;
         $this->chatroom = $chatroom;
-        $this->guruChannel = $guruChannel;
+        $this->guruid = $guruId;
     }
 
     /**
@@ -41,7 +41,7 @@ class RoomCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        Log::info('Yo opo');
-        return new PrivateChannel($this->guruChannel);
+        Log::info('broadcaston RoomCreated');
+        return new PrivateChannel('guru.'.$this->guruid);
     }
 }

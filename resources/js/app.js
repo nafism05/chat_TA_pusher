@@ -42,14 +42,7 @@ const app = new Vue({
     },
 
     created() {
-        Echo.private(guruChannel)
-        .listen('RoomCreated', (e) => {
-            this.rooms.push({
-                judul: e.chatroom.judul
-            });
-            console.log('tes bosse');
-            console.log(e);
-        });
+
 
     },
 
@@ -86,6 +79,24 @@ const app = new Vue({
             axios.get('/chatrooms').then(response => {
                 this.rooms = response.data;
                 console.log('chatroomsaaa :'+response.data);
+            });
+        },
+
+        gFetchRooms(){
+            axios.get('/guru/chatrooms').then(response => {
+                this.rooms = response.data;
+                console.log('chatroomsaaa :'+response.data);
+            });
+        },
+
+        gListenRoomList(guruid){
+            Echo.private('guru.'+guruid)
+            .listen('RoomCreated', (e) => {
+                this.rooms.push({
+                    judul: e.chatroom.judul
+                });
+                console.log('tes bosse');
+                console.log(e);
             });
         }
     }

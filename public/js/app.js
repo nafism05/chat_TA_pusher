@@ -1927,7 +1927,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['rooms']
+  props: ['rooms', 'userid'],
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    this.fetchRooms();
+    this.listenRoomList(this.userid);
+  },
+  methods: {
+    fetchRooms: function fetchRooms() {
+      this.$emit('fetchrooms');
+    },
+    listenRoomList: function listenRoomList(guruid) {
+      this.$emit('listenroomlist', guruid);
+      console.log('listenRoomList : ' + guruid);
+    }
+  }
 });
 
 /***/ }),
@@ -59931,25 +59947,14 @@ var app = new Vue({
     messages: [],
     rooms: []
   },
-  created: function created() {
-    var _this = this;
-
-    Echo["private"](guruChannel).listen('RoomCreated', function (e) {
-      _this.rooms.push({
-        judul: e.chatroom.judul
-      });
-
-      console.log('tes bosse');
-      console.log(e);
-    });
-  },
+  created: function created() {},
   methods: {
     fetchMessages: function fetchMessages(roomid) {
-      var _this2 = this;
+      var _this = this;
 
       // console.log('roomId = '+roomid);
       axios.get('/messages/' + roomid).then(function (response) {
-        _this2.messages = response.data;
+        _this.messages = response.data;
       });
     },
     sendMessage: function sendMessage(message) {
@@ -59961,21 +59966,41 @@ var app = new Vue({
       });
     },
     listenMessageSent: function listenMessageSent(roomid) {
-      var _this3 = this;
+      var _this2 = this;
 
       Echo["private"]('chat.' + roomid).listen('MessageSent', function (e) {
-        _this3.messages.push({
+        _this2.messages.push({
           message: e.message.message,
           user: e.user
         });
       });
     },
     fetchRooms: function fetchRooms() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get('/chatrooms').then(function (response) {
+        _this3.rooms = response.data;
+        console.log('chatroomsaaa :' + response.data);
+      });
+    },
+    gFetchRooms: function gFetchRooms() {
+      var _this4 = this;
+
+      axios.get('/guru/chatrooms').then(function (response) {
         _this4.rooms = response.data;
         console.log('chatroomsaaa :' + response.data);
+      });
+    },
+    gListenRoomList: function gListenRoomList(guruid) {
+      var _this5 = this;
+
+      Echo["private"]('guru.' + guruid).listen('RoomCreated', function (e) {
+        _this5.rooms.push({
+          judul: e.chatroom.judul
+        });
+
+        console.log('tes bosse');
+        console.log(e);
       });
     }
   }

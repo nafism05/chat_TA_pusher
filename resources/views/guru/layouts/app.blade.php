@@ -9,14 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script>
-        window.laraprefix = '/guru';
-        window.chatId = 10;
-        window.guruId = {{ $data['guruId'] }};
-        window.guruChannel = "guruChannel."+guruId;
-        // window.alert(guruChannel);
-    </script>
-
+    
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

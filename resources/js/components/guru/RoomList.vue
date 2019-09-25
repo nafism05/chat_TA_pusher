@@ -19,8 +19,30 @@
 </template>
 
 <script>
-  export default {
-    props: ['rooms']
-  };
+export default {
+
+    props: ['rooms', 'userid'],
+
+    data: () => ({
+
+    }),
+
+    mounted(){
+        this.fetchRooms();
+        this.listenRoomList(this.userid);
+    },
+
+    methods: {
+
+        fetchRooms() {
+            this.$emit('fetchrooms');
+        },
+
+        listenRoomList(guruid){
+            this.$emit('listenroomlist', guruid);
+            console.log('listenRoomList : '+guruid);
+        }
+    }
+};
 
 </script>

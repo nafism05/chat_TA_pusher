@@ -12,9 +12,11 @@
 */
 
 Broadcast::channel('chat.{roomid}', function ($user, $roomid) {
+    Log::info('broadcast channel chat');
   return Auth::check();
 });
 
-Broadcast::channel('guruChannel.{guruId}', function ($user, $guruId) {
+Broadcast::channel('guru.{guruid}', function ($user, $guruid) {
+    Log::info('broadcast channel guruchannel');
   return Auth::check();
 });
