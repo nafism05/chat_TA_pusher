@@ -59973,6 +59973,8 @@ var app = new Vue({
           message: e.message.message,
           user: e.user
         });
+
+        console.log('listenMessageSent jalan');
       });
     },
     fetchRooms: function fetchRooms() {
