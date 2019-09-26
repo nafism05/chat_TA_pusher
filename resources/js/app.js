@@ -42,7 +42,7 @@ const app = new Vue({
     },
 
     created() {
-      var channel = Echo.channel('channelName');
+      // var channel = Echo.channel('channelName');
 
     },
 
@@ -66,7 +66,7 @@ const app = new Vue({
         },
 
         listenMessageSent(roomid){
-            Echo.private('chat.'+roomid)
+            Echo.channel('chat.'+roomid)
               .listen('MessageSent', (e) => {
                   this.messages.push({
                       message: e.message.message,

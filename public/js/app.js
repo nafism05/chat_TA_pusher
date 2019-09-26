@@ -59947,8 +59947,7 @@ var app = new Vue({
     messages: [],
     rooms: []
   },
-  created: function created() {
-    var channel = Echo.channel('channelName');
+  created: function created() {// var channel = Echo.channel('channelName');
   },
   methods: {
     fetchMessages: function fetchMessages(roomid) {
@@ -59970,7 +59969,7 @@ var app = new Vue({
     listenMessageSent: function listenMessageSent(roomid) {
       var _this2 = this;
 
-      Echo["private"]('chat.' + roomid).listen('MessageSent', function (e) {
+      Echo.channel('chat.' + roomid).listen('MessageSent', function (e) {
         _this2.messages.push({
           message: e.message.message,
           user: e.user

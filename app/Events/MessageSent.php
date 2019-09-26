@@ -53,6 +53,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn()
     {
         Log::info('Showing user profile for user: '.$this->chatroom);
-        return new PrivateChannel('chat.'.$this->chatroom);
+        // return new PrivateChannel('chat.'.$this->chatroom);
+        return new Channel('chat.'.$this->chatroom);
     }
 }
