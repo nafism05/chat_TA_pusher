@@ -137,4 +137,16 @@ class ChatsController extends Controller
     {
         return view('cobabutton');
     }
+
+    public function cobabroadcast()
+    {
+        $user = Auth::user();
+        //
+        $message = $user->messages()->create([
+            'message' => 'aaaaaa',
+            'chatroom' => 2
+        ]);
+
+        broadcast(new MessageSent($user, $message, 2))->toOthers();
+    }
 }

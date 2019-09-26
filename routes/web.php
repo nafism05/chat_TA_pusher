@@ -55,3 +55,4 @@ Route::group(['prefix' => 'guru', 'middleware' => ['web', 'level:1']], function 
 Route::post('/push','PushController@store');
 Route::get('/push','PushController@push')->name('push');
 Route::get('/cobabutton','ChatsController@cobabutton');
+Route::get('/cobabroadcast','ChatsController@cobabroadcast');
