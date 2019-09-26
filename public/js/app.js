@@ -59947,7 +59947,9 @@ var app = new Vue({
     messages: [],
     rooms: []
   },
-  created: function created() {},
+  created: function created() {
+    var channel = Echo.channel('channelName');
+  },
   methods: {
     fetchMessages: function fetchMessages(roomid) {
       var _this = this;

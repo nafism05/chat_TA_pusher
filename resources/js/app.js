@@ -42,7 +42,7 @@ const app = new Vue({
     },
 
     created() {
-
+      var channel = Echo.channel('channelName');
 
     },
 
