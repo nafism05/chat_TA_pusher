@@ -114,6 +114,10 @@ export default {
         .then(function(myJson) {
           console.log(JSON.stringify(myJson));
         });
+    },
+
+    cobaPermission(){
+        Notification.requestPermission();
     }
   }
 }
