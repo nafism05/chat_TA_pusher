@@ -1891,6 +1891,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (myJson) {
         console.log(JSON.stringify(myJson));
       });
+    },
+    cobaPermission: function cobaPermission() {
+      Notification.requestPermission();
     }
   }
 });
@@ -47697,7 +47700,7 @@ var render = function() {
       {
         staticClass: "btn btn-primary",
         attrs: { type: "button" },
-        on: { click: _vm.initPush }
+        on: { click: _vm.cobaPermission }
       },
       [_vm._v("\n    Enable Push Notifications\n  ")]
     )

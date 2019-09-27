@@ -12,7 +12,7 @@
     <button
       type="button"
       class="btn btn-primary"
-      @click="initPush"
+      @click="cobaPermission"
     >
       Enable Push Notifications
     </button>
