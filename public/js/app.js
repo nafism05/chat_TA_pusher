@@ -1845,7 +1845,7 @@ __webpack_require__.r(__webpack_exports__);
       navigator.serviceWorker.ready.then(function (registration) {
         var subscribeOptions = {
           userVisibleOnly: true,
-          applicationServerKey: _this2.urlBase64ToUint8Array('BJsmJqNpbZ76knvtqaaPTyU0K0y7O1FggnlB8MnUHixaLItPW81Q-cISJwolrsn3uoe79yShpKX2ZmMWxoAV-bo')
+          applicationServerKey: _this2.urlBase64ToUint8Array('BBmEKoyE0iKGeTYulV314PyBou5-7jxln5a6lrbIX4kptD2wKd7nbhZxtosdpi6mN__v81cVzpzy4fy07aF6ICQ')
         };
         return registration.pushManager.subscribe(subscribeOptions);
       }).then(function (pushSubscription) {
@@ -47690,6 +47690,16 @@ var render = function() {
         on: { click: _vm.sendNotification }
       },
       [_vm._v("\n    Send Notification\n  ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        attrs: { type: "button" },
+        on: { click: _vm.initPush }
+      },
+      [_vm._v("\n    Enable Push Notifications\n  ")]
     )
   ])
 }

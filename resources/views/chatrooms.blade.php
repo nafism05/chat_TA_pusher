@@ -23,5 +23,7 @@
             </div>
         </div>
     </div>
+
+	<a href="{{ url('cobabutton') }}">cobabutton</a>
 </div>
 @endsection

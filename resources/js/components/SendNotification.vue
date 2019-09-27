@@ -9,13 +9,13 @@
     </button>
 
     <!-- Enable/Disable push notifications -->
-    <!-- <button
+    <button
       type="button"
       class="btn btn-primary"
       @click="initPush"
     >
       Enable Push Notifications
-    </button> -->
+    </button>
   </div>
 </template>
 
@@ -55,7 +55,7 @@ export default {
                 const subscribeOptions = {
                     userVisibleOnly: true,
                     applicationServerKey: this.urlBase64ToUint8Array(
-                        'BJsmJqNpbZ76knvtqaaPTyU0K0y7O1FggnlB8MnUHixaLItPW81Q-cISJwolrsn3uoe79yShpKX2ZmMWxoAV-bo'
+                        'BBmEKoyE0iKGeTYulV314PyBou5-7jxln5a6lrbIX4kptD2wKd7nbhZxtosdpi6mN__v81cVzpzy4fy07aF6ICQ'
                     )
                 };
 
