@@ -23,7 +23,7 @@
 import axios from 'axios'
 
 export default {
-    props: ['token'],
+    // props: ['token'],
 
   data: () => ({
   }),
@@ -85,8 +85,8 @@ export default {
     },
 
     storePushSubscription(pushSubscription) {
-        const token = this.token;
-        // const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+        // const token = this.token;
+        const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
         console.log('token:', token);
 
         fetch('/push', {

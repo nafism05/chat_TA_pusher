@@ -1812,7 +1812,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['token'],
+  // props: ['token'],
   data: function data() {
     return {};
   },
@@ -1868,8 +1868,8 @@ __webpack_require__.r(__webpack_exports__);
       return outputArray;
     },
     storePushSubscription: function storePushSubscription(pushSubscription) {
-      var token = this.token; // const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
-
+      // const token = this.token;
+      var token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
       console.log('token:', token);
       fetch('/push', {
         method: 'POST',
