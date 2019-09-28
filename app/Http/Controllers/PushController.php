@@ -29,7 +29,16 @@ class PushController extends Controller
         $user->updatePushSubscription($endpoint, $key, $token);
 
         return response()->json(['success' => true],200);*/
-        return response()->json([$request->test]);
+        // return response()->json([$request->test]);
+
+        $endpoint = $request->endpoint;
+        $token = $request->auth;
+        $key = $request->p256dh;
+        Log::info('key:'.$key);
+        $user = Auth::user();
+        $user->updatePushSubscription($endpoint, $key, $token);
+
+        return response()->json(['success' => true],200);
     }
     /**
      * Send Push Notifications to all users.

@@ -1892,7 +1892,9 @@ __webpack_require__.r(__webpack_exports__);
       //     });
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/push', {
-        test: 'test'
+        endpoint: data.endpoint,
+        auth: data.keys.auth,
+        p256dh: data.keys.p256dh
       }).then(function (response) {
         console.log(response.data);
       })["catch"](function (error) {

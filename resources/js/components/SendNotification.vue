@@ -111,7 +111,9 @@ export default {
         //     });
 
         axios.post('/push', {
-            test: 'test'
+            endpoint: data.endpoint,
+            auth: data.keys.auth,
+            p256dh: data.keys.p256dh
         }).then(response => {
             console.log(response.data);
         }).catch(error => {
