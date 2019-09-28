@@ -88,8 +88,8 @@ export default {
         // const token = this.token;
         const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
         console.log('token:', token);
-
-        console.log('push subscriptions: ', JSON.stringify(pushSubscription));
+        var data = JSON.parse(JSON.stringify(pushSubscription));
+        console.log('push subscriptions: ', data.endpoint);
 
         // fetch('/push', {
         //     method: 'POST',

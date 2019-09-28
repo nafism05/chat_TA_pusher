@@ -1871,7 +1871,8 @@ __webpack_require__.r(__webpack_exports__);
       // const token = this.token;
       var token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
       console.log('token:', token);
-      console.log('push subscriptions: ', JSON.stringify(pushSubscription)); // fetch('/push', {
+      var data = JSON.parse(JSON.stringify(pushSubscription));
+      console.log('push subscriptions: ', data.endpoint); // fetch('/push', {
       //     method: 'POST',
       //     body: JSON.stringify(pushSubscription),
       //     headers: {
