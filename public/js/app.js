@@ -1870,22 +1870,26 @@ __webpack_require__.r(__webpack_exports__);
     storePushSubscription: function storePushSubscription(pushSubscription) {
       // const token = this.token;
       var token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
-      console.log('token:', token);
-      fetch('/push', {
-        method: 'POST',
-        body: JSON.stringify(pushSubscription),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': token
-        }
-      }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        console.log(res);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      console.log('token:', token); // fetch('/push', {
+      //     method: 'POST',
+      //     body: JSON.stringify(pushSubscription),
+      //     headers: {
+      //         'Accept': 'application/json',
+      //         'Content-Type': 'application/json',
+      //         'X-CSRF-TOKEN': token
+      //     }
+      // })
+      //     .then((res) => {
+      //         return res.json();
+      //     })
+      //     .then((res) => {
+      //         console.log(res)
+      //     })
+      //     .catch((err) => {
+      //         console.log(err)
+      //     });
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/push', JSON.stringify(pushSubscription));
     },
     sendNotification: function sendNotification() {
       fetch('/push').then(function (response) {

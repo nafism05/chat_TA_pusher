@@ -89,24 +89,26 @@ export default {
         const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
         console.log('token:', token);
 
-        fetch('/push', {
-            method: 'POST',
-            body: JSON.stringify(pushSubscription),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token
-            }
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((err) => {
-                console.log(err)
-            });
+        // fetch('/push', {
+        //     method: 'POST',
+        //     body: JSON.stringify(pushSubscription),
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //         'X-CSRF-TOKEN': token
+        //     }
+        // })
+        //     .then((res) => {
+        //         return res.json();
+        //     })
+        //     .then((res) => {
+        //         console.log(res)
+        //     })
+        //     .catch((err) => {
+        //         console.log(err)
+        //     });
+
+        axios.post('/push', JSON.stringify(pushSubscription));
     },
 
     sendNotification () {
