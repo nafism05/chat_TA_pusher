@@ -23,7 +23,7 @@ function initSW() {
     navigator.serviceWorker.register('../sw.js')
         .then(() => {
             console.log('serviceWorker installed!')
-            initPush();
+            // initPush();
         })
         .catch((err) => {
             console.log(err)
