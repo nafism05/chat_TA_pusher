@@ -1877,7 +1877,7 @@ __webpack_require__.r(__webpack_exports__);
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'X-CSRF-Token': token
+          'X-CSRF-TOKEN': token
         }
       }).then(function (res) {
         return res.json();
