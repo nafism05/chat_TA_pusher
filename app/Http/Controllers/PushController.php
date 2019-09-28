@@ -16,7 +16,7 @@ class PushController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request){
-        $this->validate($request,[
+        /*$this->validate($request,[
             'endpoint'    => 'required',
             'keys.auth'   => 'required',
             'keys.p256dh' => 'required'
@@ -28,7 +28,8 @@ class PushController extends Controller
         $user = Auth::user();
         $user->updatePushSubscription($endpoint, $key, $token);
 
-        return response()->json(['success' => true],200);
+        return response()->json(['success' => true],200);*/
+        return response()->json([$request->test]);
     }
     /**
      * Send Push Notifications to all users.

@@ -1870,7 +1870,8 @@ __webpack_require__.r(__webpack_exports__);
     storePushSubscription: function storePushSubscription(pushSubscription) {
       // const token = this.token;
       var token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
-      console.log('token:', token); // fetch('/push', {
+      console.log('token:', token);
+      console.log('push subscriptions: ', JSON.stringify(pushSubscription)); // fetch('/push', {
       //     method: 'POST',
       //     body: JSON.stringify(pushSubscription),
       //     headers: {
@@ -1889,7 +1890,11 @@ __webpack_require__.r(__webpack_exports__);
       //         console.log(err)
       //     });
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/push', JSON.stringify(pushSubscription));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/push', {
+        test: 'test'
+      }).then(function (response) {
+        console.log(response.data);
+      });
     },
     sendNotification: function sendNotification() {
       fetch('/push').then(function (response) {

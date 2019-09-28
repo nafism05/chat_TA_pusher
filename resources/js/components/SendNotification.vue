@@ -89,6 +89,8 @@ export default {
         const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
         console.log('token:', token);
 
+        console.log('push subscriptions: ', JSON.stringify(pushSubscription));
+
         // fetch('/push', {
         //     method: 'POST',
         //     body: JSON.stringify(pushSubscription),
@@ -108,7 +110,12 @@ export default {
         //         console.log(err)
         //     });
 
-        axios.post('/push', JSON.stringify(pushSubscription));
+        axios.post('/push', {
+            test: 'test'
+        }).then(response => {
+            console.log(response.data);
+        });
+
     },
 
     sendNotification () {
