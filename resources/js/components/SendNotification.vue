@@ -55,7 +55,7 @@ export default {
                 const subscribeOptions = {
                     userVisibleOnly: true,
                     applicationServerKey: this.urlBase64ToUint8Array(
-                        'BBmEKoyE0iKGeTYulV314PyBou5-7jxln5a6lrbIX4kptD2wKd7nbhZxtosdpi6mN__v81cVzpzy4fy07aF6ICQ'
+                        'BFVGRWSo59nns60lzUoUQQGOhRpFKpBDT3j2S7Q_PUVQTGTj8BN7bxz3PDD7MKgT5s5ZheBzM2g1w7s1KcExQsg'
                     )
                 };
 
