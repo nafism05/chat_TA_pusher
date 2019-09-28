@@ -1894,6 +1894,8 @@ __webpack_require__.r(__webpack_exports__);
         test: 'test'
       }).then(function (response) {
         console.log(response.data);
+      })["catch"](function (error) {
+        console.log('error post axios : ' + error);
       });
     },
     sendNotification: function sendNotification() {

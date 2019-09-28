@@ -114,6 +114,8 @@ export default {
             test: 'test'
         }).then(response => {
             console.log(response.data);
+        }).catch(error => {
+            console.log('error post axios : '+error);
         });
 
     },
