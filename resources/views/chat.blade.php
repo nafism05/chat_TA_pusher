@@ -28,5 +28,6 @@
             </div>
         </div>
     </div>
+	<a href="{{ url('endsession') }}">End Session</a>
 </div>
 @endsection

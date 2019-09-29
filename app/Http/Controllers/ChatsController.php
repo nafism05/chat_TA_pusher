@@ -149,4 +149,10 @@ class ChatsController extends Controller
 
         broadcast(new MessageSent($user, $message, 2))->toOthers();
     }
+
+    public function endsession()
+    {
+        // semua messages dikirim ke email guru dan siswa
+        // messages di tabel messages dihapus
+    }
 }

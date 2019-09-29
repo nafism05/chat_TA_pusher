@@ -18,7 +18,7 @@
 				  ></room-list-s>
                 </div>
                 <div class="panel-footer">
-                  <a href="{{ url('/chatroom/add') }}">tambah percakapan baru</a>
+                  <a href="{{ url('/chatroom/add') }}">Mulai Session</a>
                 </div>
             </div>
         </div>

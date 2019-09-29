@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web', 'level:2']], function () {
 	Route::post('/chatroom/add', 'ChatsController@storeCRoom');
 	Route::get('/messages/{roomId}', 'ChatsController@fetchMessages');
 	Route::post('/messages', 'ChatsController@sendMessage');
+	Route::get('/endsession', 'ChatsController@endsession');
 
 });
 
