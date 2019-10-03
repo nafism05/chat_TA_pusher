@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
 use App\Events\RoomCreated;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ChatsController extends Controller
 {
@@ -154,5 +155,28 @@ class ChatsController extends Controller
     {
         // semua messages dikirim ke email guru dan siswa
         // messages di tabel messages dihapus
+    }
+
+    public function cobaemail()
+    {
+        $messages = Message::where('chatroom', 2)->get();
+
+        // print_r($messages);
+
+        // foreach ($messages as $m) {
+        //     // code...
+        //     echo $m->user->name;
+        // }
+
+        $to_name = 'Siswa';
+        $to_email = 'dan10san2s@gmail.com';
+        $data = array('name'=>"Sam Jose", "body" => $messages);
+
+        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                    ->subject('Artisans Web Testing Mail');
+                    // ->setContentType('text/plain');
+            $message->from('nafism05@gmail.com','Artisans Web');;
+        });
     }
 }
