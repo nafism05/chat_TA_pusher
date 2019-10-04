@@ -1,15 +1,13 @@
 <template>
-    <ul class="chat">
-        <li class="left clearfix" v-for="message in messages">
-            <div class="chat-body clearfix">
-                <div class="header">
-                    <strong class="primary-font">
-                        {{ message.user.name }}
-                    </strong>
+    <ul>
+        <li v-for="message in messages" :class="[kananorkiri(message.user.id)]">
+            <div class="content">
+                <div class="message">
+                    <div class="bubble">
+                        <p>{{ message.message }}</p>
+                    </div>
                 </div>
-                <p>
-                    {{ message.message }}
-                </p>
+                <span>{{ message.user.name }}</span>
             </div>
         </li>
     </ul>
@@ -17,7 +15,7 @@
 
 <script>
 export default {
-    props: ['roomid', 'messages'],
+    props: ['roomid', 'messages', 'userid'],
 
     data: () => ({
         // messages: []
@@ -35,6 +33,13 @@ export default {
 
         listenMessageSent(roomid){
             this.$emit('listenmessagesent', roomid);
+        },
+        kananorkiri(userid){
+            if(userid==this.userid){
+                return "isichatkanan";
+            }else{
+                return "isichatkiri";
+            }
         }
 
     }

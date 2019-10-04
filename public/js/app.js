@@ -1754,10 +1754,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['roomid', 'messages'],
+  props: ['roomid', 'messages', 'userid'],
   data: function data() {
     return {// messages: []
     };
@@ -1772,6 +1770,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     listenMessageSent: function listenMessageSent(roomid) {
       this.$emit('listenmessagesent', roomid);
+    },
+    kananorkiri: function kananorkiri(userid) {
+      if (userid == this.userid) {
+        return "isichatkanan";
+      } else {
+        return "isichatkiri";
+      }
     }
   }
 });
@@ -1976,6 +1981,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47653,25 +47668,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "ul",
-    { staticClass: "chat" },
     _vm._l(_vm.messages, function(message) {
-      return _c("li", { staticClass: "left clearfix" }, [
-        _c("div", { staticClass: "chat-body clearfix" }, [
-          _c("div", { staticClass: "header" }, [
-            _c("strong", { staticClass: "primary-font" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(message.user.name) +
-                  "\n                "
-              )
+      return _c("li", { class: [_vm.kananorkiri(message.user.id)] }, [
+        _c("div", { staticClass: "content" }, [
+          _c("div", { staticClass: "message" }, [
+            _c("div", { staticClass: "bubble" }, [
+              _c("p", [_vm._v(_vm._s(message.message))])
             ])
           ]),
           _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                " + _vm._s(message.message) + "\n            "
-            )
-          ])
+          _c("span", [_vm._v(_vm._s(message.user.name))])
         ])
       ])
     }),
@@ -47780,11 +47786,29 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "ul",
+    { staticClass: "nav discussions", attrs: { role: "tablist" } },
     _vm._l(_vm.rooms, function(room) {
       return _c("li", [
-        _c("a", { attrs: { href: "chat/id/" + room.id } }, [
-          _vm._v(_vm._s(room.judul))
-        ])
+        _c(
+          "a",
+          {
+            staticClass: "filter direct active",
+            attrs: {
+              href: "chat/id/" + room.id,
+              "data-chat": "open",
+              role: "tab",
+              "aria-controls": "chat1",
+              "aria-selected": "true"
+            }
+          },
+          [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "headline" }, [
+                _c("h5", [_vm._v(_vm._s(room.judul))])
+              ])
+            ])
+          ]
+        )
       ])
     }),
     0
