@@ -6,7 +6,7 @@
 	</head>
 	<body>
 
-		Hi <strong>{{ $name }}</strong>,
+		Hi <strong>{{ $name }}</strong>, ini adalah rekap chat kamu
 		<br><br>
 		@foreach ($body as $m)
 			{{ $m->user->name }}: {{ $m->message }}<br>

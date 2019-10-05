@@ -1,19 +1,19 @@
 <template>
-    <ul>
-        <li v-for="message in messages" :class="[kananorkiri(message.user.id)]">
-            <div class="content">
-                <div class="message">
-                    <div class="bubble">
-                        <p>{{ message.message }}</p>
-                    </div>
-                </div>
-                <span>{{ message.user.name }}</span>
+    <ul v-chat-scroll>
+        <li v-for="message in messages">
+            <div class="alert alert-success">
+                {{ message.message }}
             </div>
+            {{ message.user.name }}
         </li>
     </ul>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
+
 export default {
     props: ['roomid', 'messages', 'userid'],
 

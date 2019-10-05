@@ -151,10 +151,29 @@ class ChatsController extends Controller
         broadcast(new MessageSent($user, $message, 2))->toOthers();
     }
 
-    public function endsession()
+    public function endsession($roomId)
     {
         // semua messages dikirim ke email guru dan siswa
+        $messages = Message::with('user')->where('chatroom', $roomId)->get();
+        $user = Auth::user();
+
+        //email to current user
+        $to_name = $user->name;
+        // $to_email = $user->email;
+        $to_email = 'dan10san2s@gmail.com';
+        $data = array('name'=>$user->name, "body" => $messages);
+        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                    ->subject('Rekap Chat');
+                    // ->setContentType('text/plain');
+            $message->from('acmedia@gmail.com','ACMEDIA');
+        });
+
         // messages di tabel messages dihapus
+        Message::where('chatroom', $roomId)->delete();
+        ChatRoom::where('id', $roomId)->delete();
+
+        return redirect('/chataktif');
     }
 
     public function cobaemail()
