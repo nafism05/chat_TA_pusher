@@ -29,7 +29,7 @@ Route::group(['middleware' => ['web', 'level:2']], function () {
 
     Route::get('materi-belajar/search', 'ChooseMapelController@mapelSearch');
     Route::resource('materi-belajar', 'ChooseMapelController');*/
-	Route::get('/', 'BerandaController@index');
+	Route::get('/', 'ChatsController@beranda');
 	Route::get('/chataktif', 'ChatsController@index');
 	Route::get('/chat/id/{roomId}', 'ChatsController@chat');
 	Route::get('/chatrooms', 'ChatsController@fetchRooms');
@@ -37,7 +37,9 @@ Route::group(['middleware' => ['web', 'level:2']], function () {
 	Route::post('/chatroom/add', 'ChatsController@storeCRoom');
 	Route::get('/messages/{roomId}', 'ChatsController@fetchMessages');
 	Route::post('/messages', 'ChatsController@sendMessage');
-	Route::get('/endsession/{roomId}', 'ChatsController@endsession');
+	// Route::get('/endsession/{roomId}', 'ChatsController@endsession');
+	Route::get('/berirating/{roomId}', 'ChatsController@berirating');
+	Route::post('/saverating', 'ChatsController@saverating');
 
 });
 

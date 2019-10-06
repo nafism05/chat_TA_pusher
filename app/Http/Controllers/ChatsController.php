@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Message;
 use App\ChatRoom;
+use App\Rating;
 use App\Models\Jenjang;
 use App\Models\Mapel;
 use App\Models\Materi;
@@ -44,6 +45,11 @@ class ChatsController extends Controller
         return view('chatrooms', ['data' => $this->data]);
 
 	}
+
+    public function beranda()
+    {
+        return view('beranda');
+    }
 
 	/**
 	 * Show chats
@@ -124,7 +130,7 @@ class ChatsController extends Controller
         Log::info('Yo opo save');
         broadcast(new RoomCreated($user, $chatroom, $guru->id))->toOthers();
 
-        return redirect('/'); //yg benar redireck ke chatroom
+        return redirect('/chataktif'); //yg benar redireck ke chatroom
     }
 
     public function fetchRooms()
@@ -166,36 +172,35 @@ class ChatsController extends Controller
             $message->to($to_email, $to_name)
                     ->subject('Rekap Chat');
                     // ->setContentType('text/plain');
-            $message->from('acmedia@gmail.com','ACMEDIA');
+            $message->from('acmedia11@gmail.com','ACMEDIA');
         });
 
         // messages di tabel messages dihapus
         Message::where('chatroom', $roomId)->delete();
         ChatRoom::where('id', $roomId)->delete();
 
-        return redirect('/chataktif');
+        // return redirect('/chataktif');
     }
 
-    public function cobaemail()
+    public function berirating($roomId)
     {
-        $messages = Message::where('chatroom', 2)->get();
+        $data['roomid'] = $roomId;
 
-        // print_r($messages);
+        return view('rating')->with('data', $data);
+    }
 
-        // foreach ($messages as $m) {
-        //     // code...
-        //     echo $m->user->name;
-        // }
+    public function saverating(Request $request)
+    {
+        $room = ChatRoom::where('id', $request->roomid)->first();
 
-        $to_name = 'Siswa';
-        $to_email = 'dan10san2s@gmail.com';
-        $data = array('name'=>"Sam Jose", "body" => $messages);
+        $rating = new Rating;
+        $rating->star = $request->rating;
+        $rating->guru_id = $room->guru_id;
+        $rating->save();
 
-        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)
-                    ->subject('Artisans Web Testing Mail');
-                    // ->setContentType('text/plain');
-            $message->from('nafism05@gmail.com','Artisans Web');;
-        });
+        $this->endsession($request->roomid);
+
+        return ['ratingpost' => $request->rating];
+        // return redirect('/chataktif');
     }
 }

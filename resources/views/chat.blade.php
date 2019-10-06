@@ -23,6 +23,6 @@
 
 @section('navi')
 	<li class="nav-item">
-		<a class="nav-link" href="{{ url('/endsession/'.$data['roomId']) }}">Akhiri Sesi</a>
+		<a class="nav-link" href="{{ url('/berirating/'.$data['roomId']) }}">Akhiri Sesi</a>
 	</li>
 @endsection

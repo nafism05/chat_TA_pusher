@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- Send notification button -->
-    <button
+    <!-- <button
       type="button"
       class="btn btn-success btn-send" @click="sendNotification"
     >
       Send Notification
-    </button>
+    </button> -->
 
     <!-- Enable/Disable push notifications -->
     <button
