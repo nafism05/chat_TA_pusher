@@ -75,7 +75,7 @@ export default {
             roomid: this.roomid
         }).then(response => {
             console.log(response.data);
-            window.location.replace("/chataktif");
+            window.location.replace("/");
         }).catch(error => {
             console.log('error post axios : '+error);
         });

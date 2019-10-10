@@ -9,7 +9,7 @@
     {{-- <meta name="_token" content="{!! csrf_token() !!}"> --}}
     <meta name="csrf-token" content="{!! csrf_token() !!}"/>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'ACMEDIA') }}</title>
 
 
     <!-- Scripts -->
@@ -18,6 +18,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,6 +28,18 @@
 	ul {
 		list-style-type: none;
 	}
+
+		.card{
+			margin-bottom: 20px;
+		}
+
+		.checked {
+		  color: orange;
+		}
+
+		.fa{
+		  font-size: 70px;
+		}
       </style>
 
 	  <style type="text/css">
@@ -96,6 +109,9 @@
 
 
 							@yield('navi')
+							<li class="nav-item">
+						 	   <a class="nav-link" href="{{ url('/cobabutton') }}">Enable Notification</a>
+						    </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

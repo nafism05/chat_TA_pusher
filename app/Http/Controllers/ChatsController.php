@@ -15,6 +15,7 @@ use App\Events\MessageSent;
 use App\Events\RoomCreated;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class ChatsController extends Controller
 {
@@ -36,6 +37,21 @@ class ChatsController extends Controller
         }
 
 		$chatrooms = ChatRoom::where('siswa_id', $user->id)->get();
+		// $chatrooms = ChatRoom::with('guru')->where('siswa_id', $user->id)->get();
+        // $chatrooms = DB::table('chat_room')
+        //                 ->join('users', 'chat_room.guru_id', '=', 'users.id')
+        //                 ->where('siswa_id', $user->id)
+        //                 ->select('chat_room.*', 'users.name as guru')
+        //                 ->get();
+
+        // print_r($chatrooms->guru->name);
+
+        // foreach ($chatrooms as $chatroom)
+        // {
+        //      //$product->skus is a collection of Sku models
+        //      dd( $chatroom->guru );
+        // }
+
 
         $this->data = array(
             'chatrooms' => $chatrooms,
@@ -130,7 +146,7 @@ class ChatsController extends Controller
         Log::info('Yo opo save');
         broadcast(new RoomCreated($user, $chatroom, $guru->id))->toOthers();
 
-        return redirect('/chataktif'); //yg benar redireck ke chatroom
+        return redirect('/'); //yg benar redireck ke chatroom
     }
 
     public function fetchRooms()

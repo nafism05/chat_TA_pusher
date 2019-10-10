@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Message;
 use App\ChatRoom;
+use App\Rating;
 use App\Models\Jenjang;
 use App\Models\Mapel;
 use App\Models\Materi;
@@ -48,4 +49,22 @@ class ChatsController extends Controller
 
         return ChatRoom::where('guru_id', $user->id)->get();
 	}
+
+    public function ratingsaya()
+    {
+        $rating = Rating::where('guru_id', Auth::id())->get();
+        $count = Rating::where('guru_id', Auth::id())->count();
+        $ratinga = 0;
+
+        foreach($rating as $r){
+            $ratinga += $r->star;
+        }
+
+        $ratingb = $ratinga/$count;
+
+        $data['rating'] = $ratingb;
+        $data['rfloor'] = floor($ratingb);
+
+        return view('guru/rating_guru')->with('data', $data);
+    }
 }

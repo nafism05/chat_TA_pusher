@@ -16,4 +16,9 @@ class ChatRoom extends Model
         'mapel_id',
         'materi_id'
     ];
+
+    public function guru()
+    {
+        return $this->belongsTo(User::class, 'guru_id', 'id');
+    }
 }

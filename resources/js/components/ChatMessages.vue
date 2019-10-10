@@ -1,12 +1,26 @@
 <template>
-    <ul v-chat-scroll>
+    <!-- <ul v-chat-scroll>
         <li v-for="message in messages">
             <div class="alert alert-success">
                 {{ message.message }}
             </div>
             {{ message.user.name }}
         </li>
-    </ul>
+    </ul> -->
+
+    <div class="row">
+        <div class="col-10" v-for="message in messages" :class="{'offset-2':kananorkiri(message.user.id)}" >
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" :class="{'text-right':kananorkiri(message.user.id)}">{{ message.message }}</h5>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">Nama Guru</h6> -->
+                    <!-- <p class="card-text">Isi terakhir</p> -->
+                    <!-- <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -36,9 +50,9 @@ export default {
         },
         kananorkiri(userid){
             if(userid==this.userid){
-                return "isichatkanan";
+                return true;
             }else{
-                return "isichatkiri";
+                return false;
             }
         }
 

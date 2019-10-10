@@ -1754,6 +1754,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -1776,9 +1790,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED
     },
     kananorkiri: function kananorkiri(userid) {
       if (userid == this.userid) {
-        return "isichatkanan";
+        return true;
       } else {
-        return "isichatkiri";
+        return false;
       }
     }
   }
@@ -2005,7 +2019,7 @@ __webpack_require__.r(__webpack_exports__);
         roomid: this.roomid
       }).then(function (response) {
         console.log(response.data);
-        window.location.replace("/chataktif");
+        window.location.replace("/");
       })["catch"](function (error) {
         console.log('error post axios : ' + error);
       });
@@ -2024,6 +2038,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2075,6 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -47814,15 +47845,30 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ul",
-    { directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }] },
+    "div",
+    { staticClass: "row" },
     _vm._l(_vm.messages, function(message) {
-      return _c("li", [
-        _c("div", { staticClass: "alert alert-success" }, [
-          _vm._v("\n            " + _vm._s(message.message) + "\n        ")
-        ]),
-        _vm._v("\n        " + _vm._s(message.user.name) + "\n    ")
-      ])
+      return _c(
+        "div",
+        {
+          staticClass: "col-10",
+          class: { "offset-2": _vm.kananorkiri(message.user.id) }
+        },
+        [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "card-title",
+                  class: { "text-right": _vm.kananorkiri(message.user.id) }
+                },
+                [_vm._v(_vm._s(message.message))]
+              )
+            ])
+          ])
+        ]
+      )
     }),
     0
   )
@@ -47975,11 +48021,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ul",
+    "div",
+    { staticClass: "row" },
     _vm._l(_vm.rooms, function(room) {
-      return _c("li", [
+      return _c("div", { staticClass: "col-sm-12" }, [
         _c("a", { attrs: { href: "chat/id/" + room.id } }, [
-          _vm._v(_vm._s(room.judul))
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(room.judul))
+              ])
+            ])
+          ])
         ])
       ])
     }),
@@ -48009,11 +48062,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ul",
+    "div",
+    { staticClass: "row" },
     _vm._l(_vm.rooms, function(room) {
-      return _c("li", [
+      return _c("div", { staticClass: "col-sm-12" }, [
         _c("a", { attrs: { href: "chat/id/" + room.id } }, [
-          _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
+          _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
               _c("h5", { staticClass: "card-title" }, [
                 _vm._v(_vm._s(room.judul))

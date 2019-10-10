@@ -2,10 +2,14 @@
 
 @section('content')
 
-      <room-list-s
-  		  :rooms="rooms"
-		  v-on:fetchrooms="fetchRooms"
-	  ></room-list-s>
+	<div class="container">
+		<room-list-s
+		:rooms="rooms"
+		v-on:fetchrooms="fetchRooms"
+		></room-list-s>
+
+	</div>
+
       {{-- <a href="{{ url('/chatroom/add') }}">Mulai Session</a> --}}
 
 	{{-- <a href="{{ url('cobabutton') }}">cobabutton</a> --}}
