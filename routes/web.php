@@ -19,6 +19,9 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'level:2005']], function () {
+	Route::get('/', 'AdminController@index');
+});
 
 // level 2 itu siswa
 Route::group(['middleware' => ['web', 'level:2']], function () {

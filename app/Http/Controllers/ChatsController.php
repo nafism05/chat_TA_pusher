@@ -34,6 +34,9 @@ class ChatsController extends Controller
 		$user = Auth::user();
         if ($user->level == 1) {
             return redirect('/guru');
+        }elseif($user->level == 2005){
+            return redirect('/admin');
+
         }
 
 		$chatrooms = ChatRoom::where('siswa_id', $user->id)->get();

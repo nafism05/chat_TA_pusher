@@ -37,8 +37,12 @@
 		  color: orange;
 		}
 
-		.fa{
+		.faguru{
 		  font-size: 70px;
+		}
+
+		.faadmin{
+		  font-size: 30px;
 		}
       </style>
 
