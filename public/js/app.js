@@ -47899,6 +47899,16 @@ var render = function() {
     _c(
       "button",
       {
+        staticClass: "btn btn-success btn-send",
+        attrs: { type: "button" },
+        on: { click: _vm.sendNotification }
+      },
+      [_vm._v("\n    Send Notification\n  ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
         staticClass: "btn btn-primary",
         attrs: { type: "button" },
         on: { click: _vm.initPush }

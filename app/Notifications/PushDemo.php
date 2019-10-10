@@ -18,9 +18,12 @@ class PushDemo extends Notification
      *
      * @return void
      */
-    public function __construct()
+
+    private $message;
+
+    public function __construct($message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -39,7 +42,7 @@ class PushDemo extends Notification
         return (new WebPushMessage)
             ->title('I\'m Notification Title')
             ->icon('/notification-icon.png')
-            ->body('Great, Push Notifications work!')
+            ->body($this->message)
             ->action('View App', 'notification_action');
     }
 }
