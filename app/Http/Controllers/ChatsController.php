@@ -139,7 +139,7 @@ class ChatsController extends Controller
             $guruid = $this->getguruid($roomId);
             $usertosend = User::where('id', $guruid)->get();
         }
-        Notification::send($usertosend,new PushDemo('Ini Testing'));
+        Notification::send($usertosend,new PushDemo($request->input('message')));
 
         return ['status' => 'Message Sent!'];
 	}
