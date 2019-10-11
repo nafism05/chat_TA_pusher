@@ -66,3 +66,4 @@ Route::get('/cobabutton','ChatsController@cobabutton');
 Route::get('/cobabroadcast','ChatsController@cobabroadcast');
 Route::get('/cobaemail','ChatsController@cobaemail');
 Route::get('/getguruid/{roomid}','ChatsController@getguruid');
+Route::get('/cobapush','ChatsController@cobapush');

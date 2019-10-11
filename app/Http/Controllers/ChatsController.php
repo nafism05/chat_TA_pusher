@@ -244,4 +244,10 @@ class ChatsController extends Controller
     {
         return ChatRoom::where('id', $roomid)->first()->siswa_id;
     }
+
+    public function cobapush()
+    {
+        $usertosend = User::where('id', 3)->get();
+        Notification::send($usertosend,new PushDemo('aaaa'));
+    }
 }
