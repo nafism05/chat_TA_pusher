@@ -43,6 +43,7 @@ class PushDemo extends Notification
             ->title('I\'m Notification Title')
             ->icon('/notification-icon.png')
             ->body($this->message)
-            ->action('View App', 'notification_action');
+            ->action('View App', 'notification_action')
+            ->data(['url' => url('/')]);
     }
 }
