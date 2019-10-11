@@ -132,8 +132,13 @@ class ChatsController extends Controller
         broadcast(new MessageSent($user, $message, $roomId))->toOthers();
 
         // send notification
-        $guruid = $this->getguruid($roomId);
-        $usertosend = User::where('id', $guruid)->get();
+        if($user->level == 1){
+            $siswaid = $this->getsiswaid($roomId);
+            $usertosend = User::where('id', $siswaid)->get();
+        }elseif($user->level == 2){
+            $guruid = $this->getguruid($roomId);
+            $usertosend = User::where('id', $guruid)->get();
+        }
         Notification::send($usertosend,new PushDemo('Ini Testing'));
 
         return ['status' => 'Message Sent!'];
@@ -233,5 +238,10 @@ class ChatsController extends Controller
     public function getguruid($roomid)
     {
         return ChatRoom::where('id', $roomid)->first()->guru_id;
+    }
+
+    public function getsiswaid($roomid)
+    {
+        return ChatRoom::where('id', $roomid)->first()->siswa_id;
     }
 }
