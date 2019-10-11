@@ -15,3 +15,8 @@ self.addEventListener('push', function (e) {
     }
     console.log('Push received by service worker');
 });
+
+self.addEventListener("notificationclick", function(event) {
+  event.waitUntil(clients.openWindow('https://google.com'));    
+  // event.waitUntil(clients.openWindow(event.notification.data.actions));
+});
