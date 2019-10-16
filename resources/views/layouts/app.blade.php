@@ -40,7 +40,7 @@
 		}
 
 		.faguru{
-		  font-size: 70px;
+		  font-size: 60px;
 		}
 
 		.faadmin{
