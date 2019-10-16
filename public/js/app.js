@@ -1709,6 +1709,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'roomid'],
   data: function data() {
@@ -1894,25 +1897,7 @@ __webpack_require__.r(__webpack_exports__);
       var token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
       console.log('token:', token);
       var data = JSON.parse(JSON.stringify(pushSubscription));
-      console.log('push subscriptions: ', data.endpoint); // fetch('/push', {
-      //     method: 'POST',
-      //     body: JSON.stringify(pushSubscription),
-      //     headers: {
-      //         'Accept': 'application/json',
-      //         'Content-Type': 'application/json',
-      //         'X-CSRF-TOKEN': token
-      //     }
-      // })
-      //     .then((res) => {
-      //         return res.json();
-      //     })
-      //     .then((res) => {
-      //         console.log(res)
-      //     })
-      //     .catch((err) => {
-      //         console.log(err)
-      //     });
-
+      console.log('push subscriptions: ', data.endpoint);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/push', {
         endpoint: data.endpoint,
         auth: data.keys.auth,
