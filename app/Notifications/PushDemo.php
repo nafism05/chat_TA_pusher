@@ -40,7 +40,7 @@ class PushDemo extends Notification
     public function toWebPush($notifiable, $notification)
     {
         return (new WebPushMessage)
-            ->title('I\'m Notification Title')
+            ->title('ACMedia')
             ->icon('/notification-icon.png')
             ->body($this->message)
             ->action('action', url('/'));
