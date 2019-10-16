@@ -103,7 +103,6 @@ class ChatsController extends Controller
 	 */
 	public function fetchMessages($roomId)
 	{
-        // return Message::with('user')->get();
         return Message::with('user')->where('chatroom', $roomId)->get();
 
 	}
@@ -123,11 +122,6 @@ class ChatsController extends Controller
             'message' => $request->input('message'),
             'chatroom' => $request->input('roomid')
         ]);
-
-        // $message = $user->messages()->create([
-        //     'message' => 'test',
-        //     'chatroom' => 10
-        // ]);
 
         broadcast(new MessageSent($user, $message, $roomId))->toOthers();
 
@@ -152,16 +146,16 @@ class ChatsController extends Controller
         $chatroom = new ChatRoom([
             'judul' => $request->get('judul'),
             'siswa_id' => $user->id,
-            'guru_id' => $guru->id, //acak, gawe fungsi nggo ngacak id guru
+            'guru_id' => $guru->id,
             'jenjang_id' => $request->get('jenjang'),
             'mapel_id' => $request->get('mapel')
         ]);
 
         $chatroom->save();
-        Log::info('Yo opo save');
+
         broadcast(new RoomCreated($user, $chatroom, $guru->id))->toOthers();
 
-        return redirect('/'); //yg benar redireck ke chatroom
+        return redirect('/');
     }
 
     public function fetchRooms()
@@ -196,8 +190,8 @@ class ChatsController extends Controller
 
         //email to current user
         $to_name = $user->name;
-        // $to_email = $user->email;
-        $to_email = 'dan10san2s@gmail.com';
+        $to_email = $user->email;
+        // $to_email = 'dan10san2s@gmail.com';
         $data = array('name'=>$user->name, "body" => $messages);
         Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)
@@ -210,7 +204,6 @@ class ChatsController extends Controller
         Message::where('chatroom', $roomId)->delete();
         ChatRoom::where('id', $roomId)->delete();
 
-        // return redirect('/chataktif');
     }
 
     public function berirating($roomId)
@@ -232,7 +225,7 @@ class ChatsController extends Controller
         $this->endsession($request->roomid);
 
         return ['ratingpost' => $request->rating];
-        // return redirect('/chataktif');
+        
     }
 
     public function getguruid($roomid)

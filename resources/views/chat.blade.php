@@ -12,7 +12,7 @@
 			:userid="{{ Auth::id() }}"
 		></chat-messages>
 	</div>
-		{{-- <a href="{{ url('endsession') }}">End Session</a> --}}
+
 	<div class="fixed-bottom">
 
 		<chat-form

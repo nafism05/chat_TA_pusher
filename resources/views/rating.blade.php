@@ -7,9 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 			<h3>Beri Rating</h3>
-			{{-- <form>
-
-			</form> --}}
+			
 			    <star-rating :roomid="{{ $data['roomid'] }}"></star-rating>
 
 		</div>

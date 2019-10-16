@@ -91,25 +91,6 @@ export default {
         var data = JSON.parse(JSON.stringify(pushSubscription));
         console.log('push subscriptions: ', data.endpoint);
 
-        // fetch('/push', {
-        //     method: 'POST',
-        //     body: JSON.stringify(pushSubscription),
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json',
-        //         'X-CSRF-TOKEN': token
-        //     }
-        // })
-        //     .then((res) => {
-        //         return res.json();
-        //     })
-        //     .then((res) => {
-        //         console.log(res)
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        //     });
-
         axios.post('/push', {
             endpoint: data.endpoint,
             auth: data.keys.auth,

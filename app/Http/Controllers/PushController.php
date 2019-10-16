@@ -16,20 +16,6 @@ class PushController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request){
-        /*$this->validate($request,[
-            'endpoint'    => 'required',
-            'keys.auth'   => 'required',
-            'keys.p256dh' => 'required'
-        ]);
-        $endpoint = $request->endpoint;
-        $token = $request->keys['auth'];
-        $key = $request->keys['p256dh'];
-        Log::info('key:'.$key);
-        $user = Auth::user();
-        $user->updatePushSubscription($endpoint, $key, $token);
-
-        return response()->json(['success' => true],200);*/
-        // return response()->json([$request->test]);
 
         $endpoint = $request->endpoint;
         $token = $request->auth;
