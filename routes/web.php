@@ -42,7 +42,7 @@ Route::group(['middleware' => ['web', 'level:2']], function () {
 	Route::post('/messages', 'ChatsController@sendMessage');
 	// Route::get('/endsession/{roomId}', 'ChatsController@endsession');
 	Route::get('/berirating/{roomId}', 'ChatsController@berirating');
-	Route::post('/saverating', 'ChatsController@saverating');
+	Route::post('/saverating', 'ChatsController@saverating2');
 
 });
 

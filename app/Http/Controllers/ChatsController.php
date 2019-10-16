@@ -210,7 +210,8 @@ class ChatsController extends Controller
     {
         $data['roomid'] = $roomId;
 
-        return view('rating')->with('data', $data);
+        // return view('rating')->with('data', $data);
+        return view('rating2')->with('data', $data);
     }
 
     public function saverating(Request $request)
@@ -225,7 +226,24 @@ class ChatsController extends Controller
         $this->endsession($request->roomid);
 
         return ['ratingpost' => $request->rating];
-        
+
+    }
+
+    public function saverating2(Request $request)
+    {
+        $room = ChatRoom::where('id', $request->roomid)->first();
+
+        $rating = new Rating;
+        $rating->star = $request->rating;
+        $rating->guru_id = $room->guru_id;
+        $rating->save();
+
+        $this->endsession($request->roomid);
+
+        return redirect('/');
+
+        // print_r($request->rating);
+
     }
 
     public function getguruid($roomid)
