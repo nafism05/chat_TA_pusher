@@ -67,4 +67,6 @@ class ChatsController extends Controller
 
         return view('guru/rating_guru')->with('data', $data);
     }
+
+    
 }

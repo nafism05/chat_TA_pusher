@@ -187,18 +187,15 @@ class ChatsController extends Controller
         // semua messages dikirim ke email guru dan siswa
         $messages = Message::with('user')->where('chatroom', $roomId)->get();
         $user = Auth::user();
+        $guru = $this->getGuru($roomId);
 
-        //email to current user
-        $to_name = $user->name;
-        $to_email = $user->email;
-        // $to_email = 'dan10san2s@gmail.com';
-        $data = array('name'=>$user->name, "body" => $messages);
-        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)
-                    ->subject('Rekap Chat');
-                    // ->setContentType('text/plain');
-            $message->from('acmedia11@gmail.com','ACMEDIA');
-        });
+        //email ke user saat ini
+        $this->sendEmail($user->name, $user->email, $messages);
+        //email ke guru yang bersangkutan
+        $this->sendEmail($guru->name, $guru->email, $messages);
+        //email ke admin
+        $this->sendEmail('Admin', 'acmedia11@gmail.com', $messages);
+
 
         // messages di tabel messages dihapus
         Message::where('chatroom', $roomId)->delete();
@@ -260,5 +257,37 @@ class ChatsController extends Controller
     {
         $usertosend = User::where('id', 3)->get();
         Notification::send($usertosend,new PushDemo('aaaa'));
+    }
+
+    public function sendEmail($to_name, $to_email, $messages)
+    {
+        $data = array('name'=>$to_name, "body" => $messages);
+        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                    ->subject('Rekap Chat');
+                    // ->setContentType('text/plain');
+            $message->from('acmedia11@gmail.com','ACMEDIA');
+        });
+
+        // $to_name = $user->name;
+        // $to_email = $user->email;
+        // // $to_email = 'dan10san2s@gmail.com';
+        // $data = array('name'=>$user->name, "body" => $messages);
+        // Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+        //     $message->to($to_email, $to_name)
+        //             ->subject('Rekap Chat');
+        //             // ->setContentType('text/plain');
+        //     $message->from('acmedia11@gmail.com','ACMEDIA');
+        // });
+    }
+
+    public function getGuru($roomid)
+    {
+        $chatroom = ChatRoom::where('id', 17)->first();
+        $guruid = $chatroom->guru_id;
+
+        $guru = User::where('id', $guruid)->first();
+
+        return $guru;
     }
 }

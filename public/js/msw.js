@@ -8,22 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function initSW() {
     if (!"serviceWorker" in navigator) {
-        //service worker isn't supported
+        //service worker tidak disupport
         return;
     }
 
-    //don't use it here if you use service worker
-    //for other stuff.
     if (!"PushManager" in window) {
-        //push isn't supported
+        //push tidak disupport
         return;
     }
 
-    //register the service worker
+    //register service worker
     navigator.serviceWorker.register('../sw.js')
         .then(() => {
             console.log('serviceWorker installed!')
-            // initPush();
         })
         .catch((err) => {
             console.log(err)
