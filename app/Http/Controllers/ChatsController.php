@@ -167,7 +167,8 @@ class ChatsController extends Controller
 
     public function cobabutton()
     {
-        return view('cobabutton');
+        $data['VAPID_PUBLIC_KEY'] = env('VAPID_PUBLIC_KEY', false);
+        return view('cobabutton')->with('data', $data);
     }
 
     public function cobabroadcast()
@@ -289,5 +290,10 @@ class ChatsController extends Controller
         $guru = User::where('id', $guruid)->first();
 
         return $guru;
+    }
+
+    public function cobaenv()
+    {
+        return env('VAPID_PUBLIC_KEY', false);
     }
 }

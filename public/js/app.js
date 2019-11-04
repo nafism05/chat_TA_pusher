@@ -1837,7 +1837,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // props: ['token'],
+  props: ['vapid'],
   data: function data() {
     return {};
   },
@@ -1871,7 +1871,7 @@ __webpack_require__.r(__webpack_exports__);
       navigator.serviceWorker.ready.then(function (registration) {
         var subscribeOptions = {
           userVisibleOnly: true,
-          applicationServerKey: _this2.urlBase64ToUint8Array('BFVGRWSo59nns60lzUoUQQGOhRpFKpBDT3j2S7Q_PUVQTGTj8BN7bxz3PDD7MKgT5s5ZheBzM2g1w7s1KcExQsg')
+          applicationServerKey: _this2.urlBase64ToUint8Array(_this2.vapid)
         };
         return registration.pushManager.subscribe(subscribeOptions);
       }).then(function (pushSubscription) {

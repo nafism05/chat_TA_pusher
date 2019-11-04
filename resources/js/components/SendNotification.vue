@@ -23,7 +23,7 @@
 import axios from 'axios'
 
 export default {
-    // props: ['token'],
+    props: ['vapid'],
 
   data: () => ({
   }),
@@ -57,7 +57,7 @@ export default {
                 const subscribeOptions = {
                     userVisibleOnly: true,
                     applicationServerKey: this.urlBase64ToUint8Array(
-                        'BFVGRWSo59nns60lzUoUQQGOhRpFKpBDT3j2S7Q_PUVQTGTj8BN7bxz3PDD7MKgT5s5ZheBzM2g1w7s1KcExQsg'
+                        this.vapid
                     )
                 };
 
